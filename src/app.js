@@ -51,6 +51,20 @@ app.post('/register',async (req,res)=>{
     }
 })
 
+app.post('/login',async (req,res)=>{
+    const email = req.body.email
+    const password = req.body.password
+    const userEmail = await Register.findOne({email:email})
+    // res.send(userEmail.password)
+
+    if (password===userEmail.password){
+        res.status(201).render("index")
+    }else{
+        res.send("Credentials do not match")
+    }
+    console.log(userEmail)
+})
+
 app.get('/login',(req,res)=>{
     res.render("login")
 })
